@@ -13,8 +13,8 @@ rpm --define "_topdir $PWD/rpmbuild" -i $SRPM
 # the fedora doesn't have sh-uils, however, we don't need it. skip it.
 sed -i "s/sh-utils, //" ./rpmbuild/SPECS/kernel.spec
 
-docker run -ti --name=aarch64-kernel-build -w /root/rpmbuild \
+docker run --rm -ti --name=aarch64-kernel-build -w /root/rpmbuild \
 -v $PWD/rpmbuild:/root/rpmbuild \
 $DOCKER_IMG \
-rpmbuild -bp --target=$(uname -m) SPECS/kernel.spec
+rpmbuild -bp --target=aarch64 SPECS/kernel.spec
 
